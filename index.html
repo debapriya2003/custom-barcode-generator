@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Barcode Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-content">
+                <h1><i class="fas fa-barcode"></i> Custom Barcode Generator</h1>
+                <div class="theme-toggle">
+                    <button id="themeToggle"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <div class="generator-container">
+                <div class="settings-panel">
+                    <div class="settings-section">
+                        <h2><i class="fas fa-sliders-h"></i> Settings</h2>
+                        
+                        <div class="form-group">
+                            <label for="barcodeType">Barcode Type</label>
+                            <select id="barcodeType" class="form-control">
+                                <option value="CODE128">CODE128</option>
+                                <option value="EAN13">EAN-13</option>
+                                <option value="UPC">UPC-A</option>
+                                <option value="CODE39">CODE39</option>
+                                <option value="ITF14">ITF-14</option>
+                                <option value="MSI">MSI</option>
+                                <option value="pharmacode">Pharmacode</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="barcodeValue">Barcode Value</label>
+                            <input type="text" id="barcodeValue" class="form-control" placeholder="Enter barcode data" value="BARCODE123">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="barcodeText">Display Text</label>
+                            <input type="text" id="barcodeText" class="form-control" placeholder="Text to display (optional)">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="barcodeWidth">Width</label>
+                                <input type="range" id="barcodeWidth" min="1" max="5" step="0.1" value="2" class="form-control">
+                                <span id="widthValue">2</span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="barcodeHeight">Height</label>
+                                <input type="range" id="barcodeHeight" min="10" max="200" value="100" class="form-control">
+                                <span id="heightValue">100</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="barcodeColor">Bar Color</label>
+                                <input type="color" id="barcodeColor" value="#000000" class="form-control">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="barcodeBgColor">Background</label>
+                                <input type="color" id="barcodeBgColor" value="#ffffff" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="textColor">Text Color</label>
+                            <input type="color" id="textColor" value="#000000" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fontSize">Font Size</label>
+                            <input type="range" id="fontSize" min="10" max="30" value="20" class="form-control">
+                            <span id="fontSizeValue">20</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="showText" checked> Show Text
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="addQuietZone"> Add Quiet Zone
+                            </label>
+                        </div>
+                        
+                        <button id="generateBtn" class="btn btn-primary">
+                            <i class="fas fa-barcode"></i> Generate Barcode
+                        </button>
+                        
+                        <div class="preset-section">
+                            <h3>Presets</h3>
+                            <div class="preset-buttons">
+                                <button class="btn btn-preset" data-preset="retail">Retail</button>
+                                <button class="btn btn-preset" data-preset="shipping">Shipping</button>
+                                <button class="btn btn-preset" data-preset="inventory">Inventory</button>
+                            </div>
+                            <button id="savePresetBtn" class="btn btn-secondary">
+                                <i class="fas fa-save"></i> Save Current as Preset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="preview-panel">
+                    <div class="preview-container">
+                        <h2><i class="fas fa-eye"></i> Preview</h2>
+                        <div class="barcode-preview" id="barcodePreview">
+                            <svg id="barcode"></svg>
+                        </div>
+                        <div class="preview-controls">
+                            <button id="downloadPngBtn" class="btn btn-download">
+                                <i class="fas fa-download"></i> Download PNG
+                            </button>
+                            <button id="downloadSvgBtn" class="btn btn-download">
+                                <i class="fas fa-download"></i> Download SVG
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="details-section">
+                        <h3><i class="fas fa-info-circle"></i> Barcode Details</h3>
+                        <div class="details-content">
+                            <p><strong>Type:</strong> <span id="detailType">CODE128</span></p>
+                            <p><strong>Value:</strong> <span id="detailValue">BARCODE123</span></p>
+                            <p><strong>Dimensions:</strong> <span id="detailDimensions">N/A</span></p>
+                            <p><strong>Generated at:</strong> <span id="detailTime">Not generated yet</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
