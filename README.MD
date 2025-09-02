@@ -51,7 +51,7 @@ project/
 
 1. **Clone or Download** this repository:
    ```bash
-   git clone https://github.com/yourusername/barcode-generator.git
+   git clone https://github.com/debapriya2003/barcode-generator.git
    cd barcode-generator
 2. **Open the App**:
    Simply open `index.html` in your web browser.
